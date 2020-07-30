@@ -19,7 +19,10 @@ router.post('/add', (req, res, next) => {
     });
     newPost.save()
     .then(post => {
-        res.json(post); 
+        res.json({
+            messsage: 'Product saved successfully',
+            data: post
+        }); 
     })
     .catch(err => console.log(err));
 })
@@ -30,7 +33,10 @@ router.get('/single/:id', (req, res, next) => {
     let id = req.params.id;
     Post.findById(id)
         .then((post) => {
-            res.json(post);
+            res.json({
+                messsage: `Product with id ${id} fetched successfully`,
+                data: post
+            }); 
         })
         .catch(err => console.log(err))
 });
@@ -39,9 +45,10 @@ router.get('/single/:id', (req, res, next) => {
 router.get('/all', (req, res, next) => {
     Post.find()
         .then((posts) => {
-            const result = {};
-            result.data = posts;
-            res.json(result);
+            res.json({
+                messsage: `All Products in the database fetched successfully`,
+                data: posts
+            });
         })
         .catch(err => 
             console.log(err))
